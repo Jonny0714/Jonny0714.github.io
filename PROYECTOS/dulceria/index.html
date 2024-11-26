@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Punto de Venta </title>
+    <style>
+    
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #444;
+            text-align: center;
+        }
+
+        .products, .cart {
+            margin-top: 20px;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .product {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .product img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        .product p {
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .quantity {
+            width: 60px;
+            padding: 5px;
+            margin-right: 10px;
+        }
+button {
+    padding: 10px 15px;
+    background-color: #5a9;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #47a;
+}
+
+.cart {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.cart ul {
+    list-style: none;
+    padding: 0;
+}
+
+.cart li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding: 8px;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
+
+#total {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #444;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid #eee;
+}
+
+.filters {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.search-box input, .search-box select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.search-box input {
+    flex: 1;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #5a9;
+    color: white;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+.stock-low {
+    color: #ff4444;
+}
+
+.stock-medium {
+    color: #ffbb33;
+}
+
+.stock-high {
+    color: #00C851;
+}
+</style>
+</head>
+<body>
+<h1> Dulcería "El Dulce Sabor" </h1>
+
+<div class="filters">
+<div class="search-box">
+    <input type="text" id="searchProduct" placeholder="Buscar productos...">
+    <select id="categoryFilter">
+        <option value="">Todas las categorías</option>
+        <option value="gomitas">Gomitas</option>
+        <option value="chocolates">Chocolates</option>
+        <option value="paletas">Paletas</option>
+        <option value="caramelos">Caramelos</option>
+    </select>
+    <select id="priceFilter">
+        <option value="">Todos los precios</option>
+        <option value="0-10">$0 - $10</option>
+        <option value="11-20">$11 - $20</option>
+        <option value="21+">$21+</option>
+    </select>
+</div>
+</div>
+
+<div class="products">
+<table id="inventoryTable">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+</table>
+</div>
+
+<div class="products" id="productList">
+<div class="product">
+    <img src="gomitas.jpg" alt="Gomitas">
+    <div class="product-info">
+        <h3>Gomitas Dulces</h3>
+        <p>Deliciosas gomitas de sabores surtidos</p>
+        <p>Precio: $10</p>
+        <p class="stock-high">Stock: 50 unidades</p>
+        <input type="number" class="quantity" value="1" min="1">
+        <button onclick="addToCart('Gomitas Dulces', 10)">Agregar al Carrito</button>
+    </div>
+</div>
+
+<div class="product">
+    <img src="chocolates.jpg" alt="Chocolate">
+    <div class="product-info">
+        <h3>Chocolate Premium</h3>
+        <p>Chocolate fino con 70% cacao</p>
+        <p>Precio: $20</p>
+        <p class="stock-medium">Stock: 25 unidades</p>
+        <input type="number" class="quantity" value="1" min="1">
+        <button onclick="addToCart('Chocolate Premium', 20)">Agregar al Carrito</button>
+    </div>
+</div>
+</div>
+
+<div class="cart">
+<h2>Carrito de Compras</h2>
+<ul id="cartItems"></ul>
+<p id="total">Total: $0</p>
+<button onclick="clearCart()">Vaciar Carrito</button>
+<button onclick="processSale()">Procesar Venta</button>
+</div>
+
+<script>
+let cart = [];
+let inventory = [
+    { id: 1, name: 'Gomitas Dulces', category: 'gomitas', price: 10, stock: 50 },
+    { id: 2, name: 'Chocolate Premium', category: 'chocolates', price: 20, stock: 25 },
+    { id: 3, name: 'Paleta Grande', category: 'paletas', price: 15, stock: 40 },
+    { id: 4, name: 'Caramelos Surtidos', category: 'caramelos', price: 8, stock: 60 }
+];
+
+function addToCart(productName, productPrice) {
+    const quantity = parseInt(event.target.previousElementSibling.value);
+    const product = inventory.find(p => p.name === productName);
+    
+    if (product && product.stock >= quantity) {
+        cart.push({ name: productName, price: productPrice, quantity: quantity });
+        product.stock -= quantity;
+        updateCart();
+        updateInventoryTable();
+    } else {
+        alert('No hay suficiente cantidad disponible');
+    }
+}
+
+function updateCart() {
+    const cartItems = document.getElementById('cartItems');
+    const total = document.getElementById('total');
+    cartItems.innerHTML = '';
+    
+    let totalAmount = 0;
+    cart.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        totalAmount += itemTotal;
+
+        const li = document.createElement('li');
+        li.innerHTML = `
+            ${item.name} - $${item.price} x ${item.quantity} = $${itemTotal}
+            <button onclick="removeFromCart(${index})">❌</button>
+        `;
+        cartItems.appendChild(li);
+    });
+
+    total.innerText = `Total: $${totalAmount}`;
+}
+
+function clearCart() {
+    
+    cart.forEach(item => {
+        const product = inventory.find(p => p.name === item.name);
+        if (product) {
+            product.stock += item.quantity;
+        }
+    });
+    
+    cart = [];
+    updateCart();
+    updateInventoryTable();
+}
+
+function removeFromCart(index) {
+    const item = cart[index];
+    const product = inventory.find(p => p.name === item.name);
+    if (product) {
+        product.stock += item.quantity;
+    }
+    
+    cart.splice(index, 1);
+    updateCart();
+    updateInventoryTable();
+}
+
+function updateInventoryTable() {
+    const tbody = document.querySelector('#inventoryTable tbody');
+    tbody.innerHTML = '';
+
+    inventory.forEach(item => {
+        const tr = document.createElement('tr');
+        const stockClass = item.stock < 20 ? 'stock-low' : 
+                         item.stock < 40 ? 'stock-medium' : 'stock-high';
+        
+        tr.innerHTML = `
+            <td>${item.name}</td>
+            <td>${item.category}</td>
+            <td>$${item.price}</td>
+            <td class="${stockClass}">${item.stock} unidades</td>
+            <td>
+                <input type="number" class="quantity" value="1" min="1" max="${item.stock}">
+                <button onclick="addToCart('${item.name}', ${item.price})">Agregar</button>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+function processSale() {
+    if (cart.length === 0) {
+        alert('El carrito está vacío');
+        return;
+    }
+    
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    alert(`Venta procesada con éxito!\nTotal: $${total}`);
+    cart = [];
+    updateCart();
+}
+
+
+document.getElementById('searchProduct').addEventListener('input', filterProducts);
+document.getElementById('categoryFilter').addEventListener('change', filterProducts);
+document.getElementById('priceFilter').addEventListener('change', filterProducts);
+
+function filterProducts() {
+    const searchTerm = document.getElementById('searchProduct').value.toLowerCase();
+    const categoryFilter = document.getElementById('categoryFilter').value;
+    const priceFilter = document.getElementById('priceFilter').value;
+
+    const filteredInventory = inventory.filter(item => {
+        const matchesSearch = item.name.toLowerCase().includes(searchTerm);
+        const matchesCategory = !categoryFilter || item.category === categoryFilter;
+        const matchesPrice = !priceFilter || checkPriceRange(item.price, priceFilter);
+        return matchesSearch && matchesCategory && matchesPrice;
+    });
+
+    const tbody = document.querySelector('#inventoryTable tbody');
+    tbody.innerHTML = '';
+    filteredInventory.forEach(item => {
+       
+    });
+}
+
+function checkPriceRange(price, range) {
+    switch(range) {
+        case '0-10': return price <= 10;
+        case '11-20': return price > 10 && price <= 20;
+        case '21+': return price > 20;
+        default: return true;
+    }
+}
+
+
+updateInventoryTable();
+</script>
+</body>
+</html>

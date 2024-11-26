@@ -1,0 +1,199 @@
+<!-- servicios.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinaria Huellitas - Servicios</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #4CAF50;
+            padding: 1rem;
+            color: white;
+        }
+
+        nav {
+            background-color: #45a049;
+            padding: 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 1rem;
+            padding: 0.5rem;
+        }
+
+        nav a:hover {
+            background-color: #367c39;
+            border-radius: 4px;
+        }
+
+        .active {
+            background-color: #367c39;
+            border-radius: 4px;
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-bottom: 60px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .service-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .service-item h3 {
+            color: #4CAF50;
+            margin-bottom: 1rem;
+        }
+
+        .service-item ul {
+            list-style-position: inside;
+            margin: 1rem 0;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #4CAF50;
+            margin-top: 1rem;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Veterinaria Huellitas</h1>
+    </header>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="servicios.html" class="active">Servicios</a>
+        <a href="contacto.html">Contacto</a>
+    </nav>
+    <main>
+        <h2>Nuestros Servicios</h2>
+        <div class="services-grid" id="services-container">
+            <!-- Los servicios se cargarán dinámicamente con JavaScript -->
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Veterinaria Huellitas. Todos los derechos reservados.</p>
+    </footer>
+    <script>
+        // Datos de los servicios
+        const servicios = [
+            {
+                titulo: "Consulta General",
+                descripcion: "Examen físico completo de tu mascota",
+                incluye: [
+                    "Revisión de signos vitales",
+                    "Evaluación de peso y condición corporal",
+                    "Recomendaciones de cuidado"
+                ],
+                precio: "$300"
+            },
+            {
+                titulo: "Vacunación",
+                descripcion: "Programa completo de vacunación",
+                incluye: [
+                    "Vacunas esenciales",
+                    "Carnet de vacunación",
+                    "Seguimiento"
+                ],
+                precio: "$500"
+            },
+            {
+                titulo: "Cirugías",
+                descripcion: "Procedimientos quirúrgicos especializados",
+                incluye: [
+                    "Evaluación pre-quirúrgica",
+                    "Cirugía",
+                    "Cuidados post-operatorios"
+                ],
+                precio: "Desde $2000"
+            },
+            {
+                titulo: "Limpieza Dental",
+                descripcion: "Higiene dental profesional",
+                incluye: [
+                    "Limpieza ultrasónica",
+                    "Pulido dental",
+                    "Revisión bucal completa"
+                ],
+                precio: "$800"
+            }
+        ];
+
+        // Función para cargar los servicios
+        function cargarServicios() {
+            const container = document.getElementById('services-container');
+            
+            servicios.forEach(servicio => {
+                const servicioHTML = `
+                    <div class="service-item">
+                        <h3>${servicio.titulo}</h3>
+                        <p>${servicio.descripcion}</p>
+                        <ul>
+                            ${servicio.incluye.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                        <p class="price">${servicio.precio}</p>
+                        <a href="contacto.html" class="btn">Solicitar cita</a>
+                    </div>
+                `;
+                container.innerHTML += servicioHTML;
+            });
+        }
+
+        // Cargar servicios cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', cargarServicios);
+    </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinaria Huellitas - Inicio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #4CAF50;
+            padding: 1rem;
+            color: white;
+        }
+
+        nav {
+            background-color: #45a049;
+            padding: 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 1rem;
+            padding: 0.5rem;
+        }
+
+        nav a:hover {
+            background-color: #367c39;
+            border-radius: 4px;
+        }
+
+        .active {
+            background-color: #367c39;
+            border-radius: 4px;
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .services-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .service-card {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .service-card img {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Veterinaria Huellitas</h1>
+    </header>
+    <nav>
+        <a href="index.html" class="active">Inicio</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="contacto.html">Contacto</a>
+    </nav>
+    <main>
+        <section class="hero">
+            <h2>Bienvenidos a Veterinaria Huellitas</h2>
+            <p>Cuidamos de tus mascotas con amor y profesionalismo</p>
+        </section>
+        <section class="services-preview">
+            <div class="service-card">
+                <img src="/api/placeholder/200/200" alt="Consulta general">
+                <h3>Consulta General</h3>
+                <p>Revisión completa de tu mascota</p>
+                <a href="servicios.html" class="btn">Más información</a>
+            </div>
+            <div class="service-card">
+                <img src="/api/placeholder/200/200" alt="Vacunación">
+                <h3>Vacunación</h3>
+                <p>Mantén a tu mascota protegida</p>
+                <a href="servicios.html" class="btn">Más información</a>
+            </div>
+            <div class="service-card">
+                <img src="/api/placeholder/200/200" alt="Cirugías">
+                <h3>Cirugías</h3>
+                <p>Procedimientos quirúrgicos especializados</p>
+                <a href="servicios.html" class="btn">Más información</a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Veterinaria Huellitas. Todos los derechos reservados.</p>
+    </footer>
+    <script>
+        // Highlight current page in navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = document.querySelectorAll('nav a');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
